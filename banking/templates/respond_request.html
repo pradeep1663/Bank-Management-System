@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Respond Request</title>
+    <style>
+        body{
+            font-family: Arial;
+            max-width:600px;
+            margin:50px auto;
+        }
+
+        textarea{
+            width:100%;
+            padding:10px;
+        }
+
+        button{
+            padding:10px;
+            background:green;
+            color:white;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Respond To Request</h2>
+
+<p><strong>User:</strong> {{ request_data.user_name }}</p>
+
+<p><strong>Request Type:</strong>
+{{ request_data.req_type }}</p>
+
+<p><strong>Amount:</strong>
+₹{{ request_data.req_amount }}</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <textarea
+        name="response_text"
+        rows="5"
+        placeholder="Enter response here..."
+        required>
+    </textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Submit Response
+    </button>
+</form>
+
+<br>
+
+<a href="/view_requests/">
+    Back
+</a>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Responses</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>My Responses</h2>
+
+<table>
+    <tr>
+        <th>Request Type</th>
+        <th>Amount</th>
+        <th>Response</th>
+        <th>Date</th>
+    </tr>
+
+    {% for r in responses %}
+    <tr>
+        <td>{{ r.req_type }}</td>
+        <td>₹{{ r.req_amount }}</td>
+        <td>{{ r.response_text }}</td>
+        <td>{{ r.response_date }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">
+            No responses available.
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<a href="/dashboard/">Back to Dashboard</a>
+
+</body>
+</html>

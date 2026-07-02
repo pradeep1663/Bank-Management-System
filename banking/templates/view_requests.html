@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Requests</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        .approve {
+            background: green;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .reject {
+            background: red;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .back {
+            background: blue;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Customer Requests</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:green;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Request Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for req in requests %}
+
+        <tr>
+
+            <td>{{ req.req_id }}</td>
+
+            <td>{{ req.user.user_name }}</td>
+
+            <td>{{ req.req_type }}</td>
+
+            <td>₹{{ req.req_amount }}</td>
+
+            <td>
+
+                {% if req.status == 'Approved' %}
+                    <span class="approved">
+                        Approved
+                    </span>
+
+                {% elif req.status == 'Rejected' %}
+                    <span class="rejected">
+                        Rejected
+                    </span>
+
+                {% else %}
+                    <span class="pending">
+                        Pending
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if req.status == 'Pending' %}
+
+                    <a class="approve"
+                       href="{% url 'approve_request' req.req_id %}">
+                        Approve
+                    </a>
+
+                    <a class="reject"
+                       href="{% url 'reject_request' req.req_id %}">
+                        Reject
+                    </a>
+
+                {% else %}
+
+                    Completed
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="6">
+                No Requests Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a class="back" href="/dashboard/">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

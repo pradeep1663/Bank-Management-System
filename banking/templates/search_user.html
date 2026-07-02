@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search User</title>
+</head>
+<body>
+
+<h2>Search Customer</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="number"
+       name="user_id"
+       placeholder="Enter User ID">
+
+    <button type="submit">
+        Search
+    </button>
+</form>
+
+<br>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Account Type</th>
+    <th>Balance</th>
+</tr>
+
+{% for user in users %}
+<tr>
+    <td>{{ user.id }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.role }}</td>
+    <td>{{ user.account_type }}</td>
+    <td>₹{{ user.balance }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

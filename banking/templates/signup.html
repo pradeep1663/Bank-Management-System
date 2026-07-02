@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <style>
+        body { font-family: Arial;
+             max-width: 400px; 
+             margin: 50px auto;
+             }
+        input, select { width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; }
+        button { width: 100%;
+             padding: 10px; 
+             background: green; 
+             color: white;
+              border: none;
+             }
+             p {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    a {
+        color: blue;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    </style>
+</head>
+<body>
+    <h2>Sign Up</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        
+        <select name="role" required>
+            <option value="customer">Customer</option>
+            <option value="admin">Admin</option>
+        </select>
+        
+        <select name="account_type" required>
+            <option value="savings">Savings</option>
+            <option value="current">Current</option>
+        </select>
+        
+        <button type="submit">Sign Up</button>
+    </form>
+    
+    <p>Already have account? <a href="/login/">Login</a></p>
+</body>
+</html>

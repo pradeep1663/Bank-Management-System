@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 450px;
+            margin: 50px auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkblue;
+        }
+
+        .messages {
+            color: green;
+            margin-bottom: 10px;
+        }
+
+        .amount-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Submit Service Request</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="messages">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Request Type</label>
+        <select name="request_type" id="reqType" onchange="showAmount()" required>
+            <option value="">-- Select Request Type --</option>
+            <option value="loan">Loan</option>
+            <option value="atm_card">ATM Card</option>
+            <option value="checkbook">Checkbook</option>
+        </select>
+
+        <div id="amountSection" class="amount-section">
+            <label>Loan Amount</label>
+            <input
+                type="number"
+                name="amount"
+                id="amountField"
+                placeholder="Enter loan amount"
+                step="0.01">
+        </div>
+
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <br>
+
+    <a href="/dashboard/">Back to Dashboard</a>
+
+    <script>
+        function showAmount() {
+            var type = document.getElementById('reqType').value;
+            var amountSection = document.getElementById('amountSection');
+            var amountField = document.getElementById('amountField');
+
+            if (type === 'loan') {
+                amountSection.style.display = 'block';
+                amountField.required = true;
+            } else {
+                amountSection.style.display = 'none';
+                amountField.required = false;
+                amountField.value = '';
+            }
+        }
+
+        showAmount();
+    </script>
+
+</body>
+</html>

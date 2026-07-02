@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Users</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #333; color: white; }
+        .btn { padding: 5px 10px; background: red; color: white; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h2>All Users</h2>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.user_name }}</td>
+            <td>{{ user.user_role }}</td>
+            <td>
+                {% if user.user_role == 'customer' %}
+                    <a href="/delete/{{ user.user_id }}/" class="btn">Delete</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <p><a href="/dashboard/">Back to Dashboard</a></p>
+</body>
+</html>

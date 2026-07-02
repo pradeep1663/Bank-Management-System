@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balance</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; text-align: center; }
+        .balance { background: lightgreen; padding: 30px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h2>Account Balance</h2>
+    
+    <div class="balance">
+        <h1>₹{{ account.account_balance }}</h1>
+        <p>{{ account.account_type }} Account</p>
+    </div>
+    
+    <p><a href="/dashboard/">Back to Dashboard</a></p>
+</body>
+</html>
