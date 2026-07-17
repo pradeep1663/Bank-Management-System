@@ -1,34 +1,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Customer Dashboard</title>
+
     <style>
-        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
-        .balance { background: lightblue; padding: 20px; margin: 20px 0; }
-        .menu a { display: block; padding: 10px; margin: 5px; background: green; color: white; text-decoration: none; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 550px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            color: green;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .balance {
+            background: linear-gradient(135deg, #007bff, #00b4db);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .balance h3 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .balance p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #218838;
+        }
+
+        .logout {
+            background: #dc3545 !important;
+        }
+
+        .logout:hover {
+            background: #b02a37 !important;
+        }
+
     </style>
+
 </head>
+
 <body>
-    <h2>Customer Dashboard</h2>
-    
-    {% if messages %}
-        {% for message in messages %}
-            <p style="color: green;">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-    
-    <div class="balance">
-        <h3>Balance: ₹{{ account.account_balance }}</h3>
-        <p>Account Type: {{ account.account_type }}</p>
+
+    <div class="container">
+
+        <h2>Customer Dashboard</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="message">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        <div class="balance">
+
+            <h3>Balance: ₹{{ account.account_balance }}</h3>
+
+            <p>
+                Account Type:
+                {{ account.account_type }}
+            </p>
+
+        </div>
+
+        <div class="menu">
+
+            <a href="/balance/">
+                Check Balance
+            </a>
+
+            <a href="/deposit/">
+                Deposit Money
+            </a>
+
+            <a href="/withdraw/">
+                Withdraw Money
+            </a>
+
+            <a href="/request/">
+                Submit Request
+            </a>
+
+            <a href="/view_responses/">
+                View Request Status
+            </a>
+
+            <a href="/logout/" class="logout">
+                Logout
+            </a>
+
+        </div>
+
     </div>
-    
-    <div class="menu">
-        <a href="/balance/">Check Balance</a>
-        <a href="/deposit/">Deposit Money</a>
-        <a href="/withdraw/">Withdraw Money</a>
-        <a href="/request/">Submit Request</a>
-        <a href="/view_responses/">View Responses</a>
-        <a href="/logout/">Logout</a>
-    </div>
+
 </body>
 </html>

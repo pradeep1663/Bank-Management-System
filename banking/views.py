@@ -243,6 +243,7 @@ def view_requests(request):
     SELECT
     r.req_id,
     u.user_name,
+    u.user_id,
     r.req_type,
     r.req_amount,
     r.status
@@ -255,10 +256,13 @@ def view_requests(request):
     requests_list = [
     {
         'req_id': r[0],
-        'user': {'user_name': r[1]},
-        'req_type': r[2],
-        'req_amount': r[3],
-        'status': r[4]
+        'user': {
+            'user_id': r[2],
+            'user_name': r[1]
+        },
+        'req_type': r[3],
+        'req_amount': r[4],
+        'status': r[5]
     }
     for r in requests
 ]
@@ -266,11 +270,37 @@ def view_requests(request):
     return render(request, 'view_requests.html', {'requests': requests_list})
 
 def approve_request(request, req_id):
+
     with connection.cursor() as cursor:
-        cursor.execute(
-            "UPDATE requests SET status='Approved' WHERE req_id=%s",
-            [req_id]
-        )
+
+        # Request details fetch cheyyi
+        cursor.execute("""
+            SELECT user_id, req_type, req_amount
+            FROM requests
+            WHERE req_id = %s
+        """, [req_id])
+
+        req = cursor.fetchone()
+
+        user_id = req[0]
+        req_type = req[1]
+        req_amount = req[2]
+
+        # Loan ayithe amount credit cheyi
+        if req_type == 'loan':
+
+            cursor.execute("""
+                UPDATE accounts
+                SET account_balance = account_balance + %s
+                WHERE user_id = %s
+            """, [req_amount, user_id])
+
+        # Status update
+        cursor.execute("""
+            UPDATE requests
+            SET status = 'Approved'
+            WHERE req_id = %s
+        """, [req_id])
 
     return redirect('view_requests')
 
@@ -310,6 +340,7 @@ def respond_request(request, req_id):
         cursor.execute("""
             SELECT r.req_id,
                    u.user_name,
+                    u.user_id,
                    r.req_type,
                    r.req_amount
             FROM requests r
@@ -320,11 +351,12 @@ def respond_request(request, req_id):
         req = cursor.fetchone()
 
     request_data = {
-        'req_id': req[0],
-        'user_name': req[1],
-        'req_type': req[2],
-        'req_amount': req[3]
-    }
+    'req_id': req[0],
+    'user_name': req[1],
+    'user_id': req[2],
+    'req_type': req[3],
+    'req_amount': req[4]
+}
 
     return render(
         request,
@@ -341,28 +373,24 @@ def view_responses(request):
 
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT
-                r.req_type,
-                r.req_amount,
-                res.response_text,
-                res.response_date
-            FROM requests r
-            JOIN response res
-                ON r.req_id = res.request_id
-            WHERE r.user_id = %s
-        """, [user_id])
+    SELECT
+        req_type,
+        req_amount,
+        status
+    FROM requests
+    WHERE user_id = %s
+""", [user_id])
 
         responses = cursor.fetchall()
 
     response_list = [
-        {
-            'req_type': r[0],
-            'req_amount': r[1],
-            'response_text': r[2],
-            'response_date': r[3]
-        }
-        for r in responses
-    ]
+    {
+        'req_type': r[0],
+        'req_amount': r[1],
+        'status': r[2]
+    }
+    for r in responses
+]
 
     return render(
         request,

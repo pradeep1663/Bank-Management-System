@@ -4,14 +4,34 @@
     <title>View Requests</title>
 
     <style>
+
         body {
-            font-family: Arial;
-            max-width: 1000px;
-            margin: 50px auto;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
         }
 
         h2 {
             text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            color: green;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
 
         table {
@@ -19,31 +39,50 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
         }
 
-        th {
-            background-color: #333;
-            color: white;
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e9ecef;
         }
 
         .approve {
-            background: green;
+            background: #28a745;
             color: white;
-            padding: 6px 12px;
+            padding: 8px 14px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .approve:hover {
+            background: #218838;
         }
 
         .reject {
-            background: red;
+            background: #dc3545;
             color: white;
-            padding: 6px 12px;
+            padding: 8px 14px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .reject:hover {
+            background: #b02a37;
         }
 
         .approved {
@@ -61,33 +100,50 @@
             font-weight: bold;
         }
 
-        .back {
-            background: blue;
-            color: white;
-            padding: 8px 15px;
-            text-decoration: none;
-            border-radius: 4px;
+        .completed {
+            color: #007bff;
+            font-weight: bold;
         }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #0056b3;
+        }
+
     </style>
+
 </head>
 
 <body>
+
+<div class="container">
 
     <h2>Customer Requests</h2>
 
     {% if messages %}
         {% for message in messages %}
-            <p style="color:green;">
+            <div class="message">
                 {{ message }}
-            </p>
+            </div>
         {% endfor %}
     {% endif %}
 
     <table>
 
         <tr>
-            <th>ID</th>
-            <th>Customer</th>
+            <th>Request ID</th>
+            <th>User ID</th>
+            <th>Customer Name</th>
             <th>Request Type</th>
             <th>Amount</th>
             <th>Status</th>
@@ -100,6 +156,8 @@
 
             <td>{{ req.req_id }}</td>
 
+            <td>{{ req.user.user_id }}</td>
+
             <td>{{ req.user.user_name }}</td>
 
             <td>{{ req.req_type }}</td>
@@ -110,17 +168,17 @@
 
                 {% if req.status == 'Approved' %}
                     <span class="approved">
-                        Approved
+                        ✅ Approved
                     </span>
 
                 {% elif req.status == 'Rejected' %}
                     <span class="rejected">
-                        Rejected
+                        ❌ Rejected
                     </span>
 
                 {% else %}
                     <span class="pending">
-                        Pending
+                        ⏳ Pending
                     </span>
 
                 {% endif %}
@@ -143,7 +201,9 @@
 
                 {% else %}
 
-                    Completed
+                    <span class="completed">
+                        Completed
+                    </span>
 
                 {% endif %}
 
@@ -154,7 +214,7 @@
         {% empty %}
 
         <tr>
-            <td colspan="6">
+            <td colspan="7">
                 No Requests Found
             </td>
         </tr>
@@ -163,11 +223,11 @@
 
     </table>
 
-    <br>
-
-    <a class="back" href="/dashboard/">
+    <a href="/dashboard/" class="back-btn">
         Back to Dashboard
     </a>
+
+</div>
 
 </body>
 </html>

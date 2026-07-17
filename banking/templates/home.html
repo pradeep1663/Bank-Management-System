@@ -1,15 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HDFC Bank</title>
+    <title>NewLife Bank</title>
+
     <style>
-        body { font-family: Arial; text-align: center; margin-top: 50px; }
-        .btn { padding: 10px 20px; margin: 10px; background: blue; color: white; text-decoration: none; border-radius: 5px; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin: 120px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px;
+            text-decoration: none;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .signup {
+            background: #28a745;
+        }
+
+        .signup:hover {
+            background: #218838;
+        }
+
+        .login {
+            background: #007bff;
+        }
+
+        .login:hover {
+            background: #0056b3;
+        }
+
+        .bank-logo {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
     </style>
+
 </head>
+
 <body>
-    <h1>Welcome to NewLife Bank</h1>
-    <a href="/signup/" class="btn">Sign Up</a>
-    <a href="/login/" class="btn">Login</a>
+
+    <div class="container">
+
+        <div class="bank-logo">
+            🏦
+        </div>
+
+        <h1>Welcome to NewLife Bank</h1>
+
+        <p>
+            Secure Banking Solutions for Your Financial Future
+        </p>
+
+        <a href="/signup/" class="btn signup">
+            Sign Up
+        </a>
+
+        <a href="/login/" class="btn login">
+            Login
+        </a>
+
+    </div>
+
 </body>
 </html>

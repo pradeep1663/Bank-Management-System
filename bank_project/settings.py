@@ -48,7 +48,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bank_project.wsgi.application'
 
-# ✅ IMPORTANT: MySQL Configuration (NOT SQLite!)
+# MySQL Configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Responses</title>
+    <title>My Request Status</title>
+
     <style>
+
         body {
-            font-family: Arial;
-            max-width: 800px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 900px;
             margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
         }
 
         table {
@@ -14,48 +32,125 @@
             border-collapse: collapse;
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+        th {
+            background: #007bff;
+            color: white;
+            padding: 12px;
         }
 
-        th {
-            background: #f2f2f2;
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
         }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e9ecef;
+        }
+
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #0056b3;
+        }
+
     </style>
+
 </head>
+
 <body>
 
-<h2>My Responses</h2>
+<div class="container">
 
-<table>
-    <tr>
-        <th>Request Type</th>
-        <th>Amount</th>
-        <th>Response</th>
-        <th>Date</th>
-    </tr>
+    <h2>My Request Status</h2>
 
-    {% for r in responses %}
-    <tr>
-        <td>{{ r.req_type }}</td>
-        <td>₹{{ r.req_amount }}</td>
-        <td>{{ r.response_text }}</td>
-        <td>{{ r.response_date }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="4">
-            No responses available.
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <table>
 
-<br>
+        <tr>
+            <th>Request Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
 
-<a href="/dashboard/">Back to Dashboard</a>
+        {% for r in responses %}
+
+        <tr>
+
+            <td>{{ r.req_type }}</td>
+
+            <td>₹{{ r.req_amount }}</td>
+
+            <td>
+
+                {% if r.status == 'Approved' %}
+
+                    <span class="approved">
+                        ✅ Approved
+                    </span>
+
+                {% elif r.status == 'Rejected' %}
+
+                    <span class="rejected">
+                        ❌ Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="pending">
+                        ⏳ Pending
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="3">
+                No Requests Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <a href="/dashboard/" class="back-btn">
+        Back to Dashboard
+    </a>
+
+</div>
 
 </body>
 </html>

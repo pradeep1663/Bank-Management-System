@@ -1,23 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deposit</title>
+    <title>Deposit Money</title>
+
     <style>
-        body { font-family: Arial; max-width: 400px; margin: 50px auto; }
-        input { width: 100%; padding: 10px; margin: 10px 0; }
-        button { width: 100%; padding: 10px; background: green; color: white; border: none; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 450px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .balance {
+            background: #e8f5e9;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #0056b3;
+        }
+
     </style>
+
 </head>
+
 <body>
-    <h2>Deposit Money</h2>
-    <p>Current Balance: ₹{{ account.account_balance }}</p>
-    
-    <form method="post">
-        {% csrf_token %}
-        <input type="number" name="amount" placeholder="Enter amount" step="0.01" required>
-        <button type="submit">Deposit</button>
-    </form>
-    
-    <p><a href="/dashboard/">Back to Dashboard</a></p>
+
+    <div class="container">
+
+        <h2>Deposit Money</h2>
+
+        <div class="balance">
+            Current Balance: ₹{{ account.account_balance }}
+        </div>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <label>Deposit Amount</label>
+
+            <input
+                type="number"
+                name="amount"
+                placeholder="Enter amount"
+                step="0.01"
+                required
+            >
+
+            <button type="submit">
+                Deposit Money
+            </button>
+
+        </form>
+
+        <a href="/dashboard/" class="back-btn">
+            Back to Dashboard
+        </a>
+
+    </div>
+
 </body>
 </html>

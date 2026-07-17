@@ -2,19 +2,86 @@
 <html>
 <head>
     <title>Balance</title>
+
     <style>
-        body { font-family: Arial; max-width: 400px; margin: 50px auto; text-align: center; }
-        .balance { background: lightgreen; padding: 30px; margin: 20px 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 450px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .balance {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .balance h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        .balance p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #0056b3;
+        }
+
     </style>
+
 </head>
+
 <body>
-    <h2>Account Balance</h2>
-    
-    <div class="balance">
-        <h1>₹{{ account.account_balance }}</h1>
-        <p>{{ account.account_type }} Account</p>
+
+    <div class="container">
+
+        <h2>Account Balance</h2>
+
+        <div class="balance">
+
+            <h1>₹{{ account.account_balance }}</h1>
+
+            <p>{{ account.account_type }} Account</p>
+
+        </div>
+
+        <a href="/dashboard/" class="back-btn">
+            Back to Dashboard
+        </a>
+
     </div>
-    
-    <p><a href="/dashboard/">Back to Dashboard</a></p>
+
 </body>
 </html>

@@ -2,45 +2,157 @@
 <html>
 <head>
     <title>Search User</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e9ecef;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #218838;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h2>Search Customer</h2>
+    <div class="container">
 
-<form method="post">
-    {% csrf_token %}
-    <input type="number"
-       name="user_id"
-       placeholder="Enter User ID">
+        <h2>Search Customer</h2>
 
-    <button type="submit">
-        Search
-    </button>
-</form>
+        <form method="post">
 
-<br>
+            {% csrf_token %}
 
-<table border="1">
+            <input
+                type="number"
+                name="user_id"
+                placeholder="Enter User ID"
+                required
+            >
 
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Role</th>
-    <th>Account Type</th>
-    <th>Balance</th>
-</tr>
+            <button type="submit">
+                Search
+            </button>
 
-{% for user in users %}
-<tr>
-    <td>{{ user.id }}</td>
-    <td>{{ user.name }}</td>
-    <td>{{ user.role }}</td>
-    <td>{{ user.account_type }}</td>
-    <td>₹{{ user.balance }}</td>
-</tr>
-{% endfor %}
+        </form>
 
-</table>
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+            </tr>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.account_type }}</td>
+                <td>₹{{ user.balance }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">
+                    No User Found
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <a href="/dashboard/" class="back-btn">
+            Back to Dashboard
+        </a>
+
+    </div>
 
 </body>
 </html>
